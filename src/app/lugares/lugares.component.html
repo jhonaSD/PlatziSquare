@@ -1,6 +1,9 @@
-<agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-</agm-map>
+<div class="container">
+    <agm-map [latitude]="lat" [longitude]="lng">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+</div>
+
 <hr/>
 <div class="container">
     <div class="row">
@@ -8,7 +11,9 @@
             <h2>Lugares cercanos</h2>
             <ul class="list-group">
             <ng-container *ngFor="let lugar of lugares">
-                <li *ngIf="lugar.active" class="list-group-item">{{lugar.nombre}}</li>
+                <a routerLink="/detalle/{{lugar.id}}" [queryParams]="{action: 'view', referer: 'xxxx'}">
+                    <li *ngIf="lugar.active" class="list-group-item">{{lugar.nombre}}</li>
+                </a>
             </ng-container>
             </ul>
         </div>
