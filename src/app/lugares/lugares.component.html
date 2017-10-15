@@ -13,7 +13,11 @@
             <ul class="list-group">
             <ng-container *ngFor="let lugar of lugares">
                 <a routerLink="/crear/{{lugar.id}}">
-                    <li class="list-group-item">{{lugar.nombre}}</li>
+                    <li class="list-group-item">
+                        {{lugar.nombre}}
+                        <br/>
+                        <small>Creado: {{lugar.id | date:'short' | uppercase}}</small>
+                    </li>
                 </a>
             </ng-container>
             </ul>
@@ -22,4 +26,11 @@
             <h2>Destacados</h2>
         </div>
     </div>
+</div>
+
+<div *ngIf="error.estado" class="container">
+    <div class="panel panel-warning">
+        <div class="panel-heading">Ocurrió un error</div>
+        <div class="panel-body">{{error.mensaje}}</div>
+      </div>
 </div>

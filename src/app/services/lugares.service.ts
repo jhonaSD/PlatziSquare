@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from 'angularfire2/database/database';
 import {Http, Headers} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LugaresService{
@@ -17,7 +18,15 @@ export class LugaresService{
       constructor(private afDB:AngularFireDatabase, private http:Http){}
 
       public getLugares(){
-          return this.afDB.list('lugares');
+          //return this.afDB.list('lugares'); //Socket
+          //Return http simple
+          //return this.http.get(`${this.API_ENDPOINT}/lugares.json`);
+          //Return http formateando el resultado
+          return this.http.get(`${this.API_ENDPOINT}/.json`)
+            .map(resultado=>{
+              const data = resultado.json().lugares;
+              return data;
+            })
       }
 
       public buscarLugar(id){
@@ -27,7 +36,7 @@ export class LugaresService{
       public guardarLugar(lugar){
         //Agrega record a firebase
         //En lugares y el nodo 1
-        //this.afDB.database.ref(`lugares/${lugar.id}`).set(lugar);
+        //this.afDB.database.ref(`lugares/${lugar.id}`).set(lugar); //Socket
         const headers = new Headers({"Content-Type": "application/json"});
         return this.http.post(`${this.API_ENDPOINT}/lugares.json`, lugar, {headers:headers}).subscribe();
       }
